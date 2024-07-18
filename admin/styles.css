@@ -1,0 +1,264 @@
+.bg-custom {
+    background-color: #142A74;
+}
+
+.bg-white {
+    background-color: #fff;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('bg.svg');
+    background-size: cover;
+    background-position: center;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-brand img {
+    height: 50px;
+    margin-right: 10px;
+}
+
+.navbar-brand .brand-name {
+    font-weight: bold;
+    font-size: 24px;
+    margin: 0;
+}
+
+.navbar-brand .sub-title {
+    font-size: 14px;
+    margin: 0;
+}
+
+.navbar-nav .nav-link {
+    font-size: 18px;
+    color: #343a40 !important; /* dark color */
+}
+
+.navbar .btn {
+    font-size: 16px;
+    padding: 10px 20px; /* Adding padding */
+    border-radius: 20px; /* Rounded edges for buttons */
+    margin-left: 10px;
+    
+}
+
+.btn-outline-primary {
+    color: #142A74;
+    border-color: #142A74;
+}
+
+.btn-outline-primary:hover {
+    background-color: #142A74 !important; 
+    color: white;
+    border-color: #142A74;
+}
+
+.btn-primary {
+    background-color: #142A74;
+    border-color: #142A74;
+}
+
+.btn-primary:hover {
+    background-color: #142A74 !important;
+    border-color: #0d1d51;
+}
+
+.bg-custom {
+    background-color: #142A74;
+    color: white;
+}
+
+.verification-container {
+    background-color: #142A74;
+    color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+
+.brand-name {
+    font-weight: bold;
+    font-size: 30px;
+    margin-bottom: 0;
+}
+
+.sub-title {
+    font-size: 22px;
+    margin-top: 0;
+}
+
+.navbar-brand img {
+    height: 65px;
+    margin-right: 10px;
+}
+
+.navbar-nav .nav-link {
+    font-size: 24px;
+}
+
+.verification-code-input {
+    width: 50px;
+    height: 50px;
+    font-size: 28px;
+    text-align: center;
+    margin-right: 5px;
+}
+
+h3 {
+    font-size: 36px;
+}
+
+p {
+    font-size: 20px;
+}
+
+.btn-primary {
+    font-size: 24px;
+}
+
+.btn-outline-light {
+    font-size: 24px;
+    border-radius: 50px;
+    background-color: #f8f9fa;
+}
+
+.btn-outline-light:hover {
+    background-color: #f8f9fa !important;
+    color: #142A74 !important;
+}
+
+.input-group-text {
+    cursor: pointer;
+}
+
+.logo {
+    width: 100px;
+    height: auto;
+}
+
+.login-card-img {
+    width: 80%;
+    height: auto;
+    display: block;
+    margin: 20px auto;
+}
+
+.brand-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding-top: 56px;
+    padding-bottom: 20px;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    background-color: white;
+}
+
+.login-card .card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+}
+
+.login-logo {
+    width: 100px;
+    height: auto;
+}
+
+.login-card .login-btn {
+    background-color: #142A74;
+    color: #fff;
+    border: none;
+}
+
+.login-card .login-btn:hover {
+    background-color: #0d1d51;
+}
+
+.left-section {
+    flex: 1.5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+}
+
+.left-section img {
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+    object-fit: cover;
+}
+
+.right-section {
+    flex: 1;
+    background-color: #fff;
+    color: #000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.right-section h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.right-section p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.right-section .btn {
+    font-size: 1rem;
+    padding: 10px 20px;
+    margin: 5px;
+    width: 150px;
+    border-radius: 5px;
+}
+
+.right-section .btn-admin {
+    background-color: #d4f733;
+    border: none;
+    color: #000;
+}
+
+.right-section .btn-student {
+    background-color: #0041c2;
+    border: none;
+    color: #fff;
+}
+
+.right-section .btn:hover {
+    opacity: 0.8;
+}

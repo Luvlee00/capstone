@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B3S Driving School</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-end">
+    <div class="container-fluid">
+        <a class="navbar-brand d-flex align-items-center" href="#">
+            <img src="logo.png" alt="B3S Logo">
+            <div>
+                <span class="brand-name">B3S</span><br>
+                <span class="sub-title">Driving School</span>
+            </div>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link text-dark" href="#">Home</a></li>
+                <li class="nav-item"><a class="nav-link text-dark" href="#">About</a></li>
+                <li class="nav-item"><a class="nav-link text-dark" href="#">Services</a></li>
+                <li class="nav-item"><a class="nav-link text-dark" href="#">Contact</a></li>
+            </ul>
+        </div>
+        <div class="d-flex">
+            <button class="btn btn-outline-primary me-2" type="button">Register</button>
+            <button class="btn btn-primary" type="button">Login</button>
+        </div>
+    </div>
+</nav>
+
+<main class="d-flex align-items-center">
+    <div class="container d-flex justify-content-center">
+        <div class="card login-card">
+            <div class="card-body">
+                <img src="logo.png" alt="Logo" class="login-logo">
+                <form class="login-form">
+                    <h3 class="text-center mb-4">Reset Password</h3>
+                    <div class="mb-3">
+                        <label for="emailaddress" class="form-label">Enter your registered email address:</label>
+                        <input type="emailaddress" class="form-control" id="emailaddress" placeholder="Email">
+                    <div class="d-flex justify-content-center">
+                        <button type="button" class="btn btn-outline-light login-btn">Continue</button><br>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

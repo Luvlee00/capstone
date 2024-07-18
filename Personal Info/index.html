@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B3S Driving School</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        .bg-custom {
+            background-color: #142A74;
+            color: white; /* Set text color to white for contrast */
+        }
+
+        .bg-white {
+            background-color: #fff;
+        }
+
+        .personal-form {
+            background-color: #142A74;
+            padding: 30px;
+            border-radius: 10px;
+            width: 70%; /* Adjust width to 70% of viewport */
+            max-width: 600px; /* Optional: Set max-width for larger screens */
+            color: white;
+        }
+
+        .left-section {
+            background-color: #fff; /* White background */
+            height: 100%; /* Full height */
+            padding: 30px; /* Add padding for spacing */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .left-section img {
+            max-width: 100%; /* Ensure image does not exceed container width */
+            height: auto; /* Maintain aspect ratio */
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+        }
+
+        .brand-name {
+            font-weight: bold;
+            font-size: 30px; /* Adjust font size as needed */
+            margin-bottom: 0; /* Remove default margin */
+        }
+
+        .sub-title {
+            font-size: 22px; /* Adjust smaller font size */
+            margin-top: 0; /* Remove default margin */
+        }
+
+        /* Adjust logo size */
+        .navbar-brand img {
+            height: 65px; /* Set height of the logo */
+            margin-right: 10px; /* Optional: Add margin for spacing */
+        }
+
+        .navbar-nav .nav-link {
+            font-size: 24px; /* Adjust font size as needed */
+        }
+
+        h3 {
+            font-size: 36px;
+        }
+
+        p {
+            font-size: 20px;
+        }
+
+        .btn-primary {
+            font-size: 24px;
+        }
+
+        .input-group-text {
+            cursor: pointer;
+        }
+
+        /* Uniform styling for form elements */
+        .form-control {
+            font-size: 18px;
+            background-color: #fff; /* White background for inputs */
+            color: #495057; /* Darker text color for readability */
+        }
+
+        .form-label {
+            font-size: 18px;
+        }
+
+        .form-select {
+            font-size: 18px;
+            background-color: #fff; /* White background for selects */
+            color: #495057; /* Darker text color for readability */
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-end">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="logo.jpg" alt="B3S Logo">
+            <div>
+                <span class="brand-name">B3S</span><br>
+                <span class="sub-title">Driving School</span>
+            </div>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end px-2" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Courses</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Login</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Register</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<div class="container-fluid vh-100">
+    <div class="row h-100">
+        <!-- Left Section with Image -->
+        <div class="col-md-6 left-section">
+            <img src="logo.jpg" alt="Driving" class="img-fluid">
+        </div>
+
+        <!-- Right Section with Personal Information -->
+        <div class="col-md-6 d-flex justify-content-center align-items-center bg-custom">
+            <div class="personal-form">
+                <form>
+                    <h3 class="text-center mb-4">Personal Information</h3>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="first" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="first" placeholder="Enter your first name">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="middle" class="form-label">Middle Name</label>
+                            <input type="text" class="form-control" id="middle" placeholder="Enter your middle name">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="last" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="last" placeholder="Enter your last name">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="suffix" class="form-label">Suffix</label>
+                            <input type="text" class="form-control" id="suffix" placeholder="Enter your suffix (e.g., Jr., Sr.)">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="birthday" class="form-label">Birthday</label>
+                            <input type="date" class="form-control" id="birthday">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="age" class="form-label">Age</label>
+                            <input type="text" class="form-control" id="age" readonly>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label for="address" class="form-label">Address</label>
+                            <input type="text" class="form-control" id="address" placeholder="Enter your address">
+                        </div>
+                        <div class="col-md-12 mb-3">
+                                <label for="status" class="form-label">Civil Status</label>
+                                <div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="status" id="single" value="Single">
+                                        <label class="form-check-label" for="single">Single</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="status" id="married" value="Married">
+                                        <label class="form-check-label" for="married">Married</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="status" id="widowed" value="Widowed">
+                                        <label class="form-check-label" for="widowed">Widowed</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        <div class="col-md-12 mb-3 d-flex justify-content-center">
+                            <button type="button" class="btn btn-outline-light">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    document.getElementById('birthday').addEventListener('change', function () {
+        const birthday = new Date(this.value);
+        const ageDifMs = Date.now() - birthday.getTime();
+        const ageDate = new Date(ageDifMs);
+        const age = Math.abs(ageDate.getUTCFullYear() - 1970);
+        document.getElementById('age').value = age;
+    });
+</script>
+</body>
+</html>

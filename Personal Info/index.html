@@ -6,105 +6,14 @@
     <title>B3S Driving School</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <style>
-        .bg-custom {
-            background-color: #142A74;
-            color: white; /* Set text color to white for contrast */
-        }
-
-        .bg-white {
-            background-color: #fff;
-        }
-
-        .personal-form {
-            background-color: #142A74;
-            padding: 30px;
-            border-radius: 10px;
-            width: 70%; /* Adjust width to 70% of viewport */
-            max-width: 600px; /* Optional: Set max-width for larger screens */
-            color: white;
-        }
-
-        .left-section {
-            background-color: #fff; /* White background */
-            height: 100%; /* Full height */
-            padding: 30px; /* Add padding for spacing */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .left-section img {
-            max-width: 100%; /* Ensure image does not exceed container width */
-            height: auto; /* Maintain aspect ratio */
-        }
-
-        .navbar-brand {
-            display: flex;
-            align-items: center;
-        }
-
-        .brand-name {
-            font-weight: bold;
-            font-size: 30px; /* Adjust font size as needed */
-            margin-bottom: 0; /* Remove default margin */
-        }
-
-        .sub-title {
-            font-size: 22px; /* Adjust smaller font size */
-            margin-top: 0; /* Remove default margin */
-        }
-
-        /* Adjust logo size */
-        .navbar-brand img {
-            height: 65px; /* Set height of the logo */
-            margin-right: 10px; /* Optional: Add margin for spacing */
-        }
-
-        .navbar-nav .nav-link {
-            font-size: 24px; /* Adjust font size as needed */
-        }
-
-        h3 {
-            font-size: 36px;
-        }
-
-        p {
-            font-size: 20px;
-        }
-
-        .btn-primary {
-            font-size: 24px;
-        }
-
-        .input-group-text {
-            cursor: pointer;
-        }
-
-        /* Uniform styling for form elements */
-        .form-control {
-            font-size: 18px;
-            background-color: #fff; /* White background for inputs */
-            color: #495057; /* Darker text color for readability */
-        }
-
-        .form-label {
-            font-size: 18px;
-        }
-
-        .form-select {
-            font-size: 18px;
-            background-color: #fff; /* White background for selects */
-            color: #495057; /* Darker text color for readability */
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-end">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand d-flex align-items-center" href="#">
             <img src="logo.jpg" alt="B3S Logo">
             <div>
                 <span class="brand-name">B3S</span><br>
@@ -114,14 +23,17 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse justify-content-end px-2" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Courses</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">About</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Login</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Register</a></li>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link text-dark" href="#">Home</a></li>
+                <li class="nav-item"><a class="nav-link text-dark" href="#">About</a></li>
+                <li class="nav-item"><a class="nav-link text-dark" href="#">Services</a></li>
+                <li class="nav-item"><a class="nav-link text-dark" href="#">Contact</a></li>
             </ul>
+        </div>
+        <div class="d-flex">
+            <button class="btn btn-outline-primary me-2" type="button">Register</button>
+            <button class="btn btn-primary" type="button">Login</button>
         </div>
     </div>
 </nav>
@@ -169,23 +81,22 @@
                             <input type="text" class="form-control" id="address" placeholder="Enter your address">
                         </div>
                         <div class="col-md-12 mb-3">
-                                <label for="status" class="form-label">Civil Status</label>
-                                <div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="status" id="single" value="Single">
-                                        <label class="form-check-label" for="single">Single</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="status" id="married" value="Married">
-                                        <label class="form-check-label" for="married">Married</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="status" id="widowed" value="Widowed">
-                                        <label class="form-check-label" for="widowed">Widowed</label>
-                                    </div>
+                            <label for="status" class="form-label">Civil Status</label>
+                            <div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="status" id="single" value="Single">
+                                    <label class="form-check-label" for="single">Single</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="status" id="married" value="Married">
+                                    <label class="form-check-label" for="married">Married</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="status" id="widowed" value="Widowed">
+                                    <label class="form-check-label" for="widowed">Widowed</label>
                                 </div>
                             </div>
-
+                        </div>
                         <div class="col-md-12 mb-3 d-flex justify-content-center">
                             <button type="button" class="btn btn-outline-light">Save</button>
                         </div>
@@ -200,14 +111,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script>
-    document.getElementById('birthday').addEventListener('change', function () {
-        const birthday = new Date(this.value);
-        const ageDifMs = Date.now() - birthday.getTime();
-        const ageDate = new Date(ageDifMs);
-        const age = Math.abs(ageDate.getUTCFullYear() - 1970);
-        document.getElementById('age').value = age;
-    });
-</script>
+<script src="scripts.js"></script>
 </body>
 </html>

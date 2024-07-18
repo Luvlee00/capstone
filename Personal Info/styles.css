@@ -1,0 +1,150 @@
+
+.bg-custom {
+    background-color: #142A74;
+    color: white; /* Set text color to white for contrast */
+}
+
+.bg-white {
+    background-color: #fff;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-brand img {
+    height: 50px;
+    margin-right: 10px;
+}
+
+.navbar-brand .brand-name {
+    font-weight: bold;
+    font-size: 24px;
+    margin: 0;
+}
+
+.navbar-brand .sub-title {
+    font-size: 14px;
+    margin: 0;
+}
+
+.navbar-nav .nav-link {
+    font-size: 18px;
+    color: #343a40 !important; /* dark color */
+}
+
+.navbar .btn {
+    font-size: 16px;
+    padding: 10px 20px; /* Adding padding */
+    border-radius: 20px; /* Rounded edges for buttons */
+    margin-left: 10px;
+    
+}
+
+.btn-outline-primary {
+    color: #142A74;
+    border-color: #142A74;
+}
+
+.btn-outline-primary:hover {
+    background-color: #142A74 !important; 
+    color: white;
+    border-color: #142A74;
+}
+
+.btn-primary {
+    background-color: #142A74;
+    border-color: #142A74;
+}
+
+.btn-primary:hover {
+    background-color: #142A74 !important;
+    border-color: #0d1d51;
+}
+
+.bg-custom {
+    background-color: #142A74;
+    color: white;
+}
+.personal-form {
+    background-color: #142A74;
+    padding: 30px;
+    border-radius: 10px;
+    width: 70%; /* Adjust width to 70% of viewport */
+    max-width: 600px; /* Optional: Set max-width for larger screens */
+    color: white;
+}
+
+.left-section {
+    background-color: #fff; /* White background */
+    height: 100%; /* Full height */
+    padding: 30px; /* Add padding for spacing */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.left-section img {
+    max-width: 100%; /* Ensure image does not exceed container width */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+
+.brand-name {
+    font-weight: bold;
+    font-size: 30px; /* Adjust font size as needed */
+    margin-bottom: 0; /* Remove default margin */
+}
+
+.sub-title {
+    font-size: 22px; /* Adjust smaller font size */
+    margin-top: 0; /* Remove default margin */
+}
+
+/* Adjust logo size */
+.navbar-brand img {
+    height: 65px; /* Set height of the logo */
+    margin-right: 10px; /* Optional: Add margin for spacing */
+}
+
+.navbar-nav .nav-link {
+    font-size: 24px; /* Adjust font size as needed */
+}
+
+h3 {
+    font-size: 36px;
+}
+
+p {
+    font-size: 20px;
+}
+
+.btn-primary {
+    font-size: 24px;
+}
+
+.input-group-text {
+    cursor: pointer;
+}
+
+/* Uniform styling for form elements */
+.form-control {
+    font-size: 18px;
+    background-color: #fff; /* White background for inputs */
+    color: #495057; /* Darker text color for readability */
+}
+
+.form-label {
+    font-size: 18px;
+}
+
+.form-select {
+    font-size: 18px;
+    background-color: #fff; /* White background for selects */
+    color: #495057; /* Darker text color for readability */
+}

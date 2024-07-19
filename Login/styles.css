@@ -65,55 +65,33 @@ body {
 }
 
 .btn-primary:hover {
-    background-color: #142A74 !important;
+    background-color: #0d1d51 !important;
     border-color: #0d1d51;
-}
-
-.bg-custom {
-    background-color: #142A74;
-    color: white;
-}
-
-h3 {
-    font-size: 36px;
 }
 
 p {
     font-size: 20px;
 }
 
-.btn-outline-light {
+.btn-outline-primary {
     font-size: 24px;
-    border-radius: 50px;
+    border-radius: 50px; /* Adjusted value for a rounder button */
     background-color: #f8f9fa;
+    padding: 10px 20px; /* Added padding for better appearance */
 }
 
-.btn-outline-light:hover {
-    background-color: #f8f9fa !important;
-    color: #142A74 !important;
+.btn-outline-primary:hover {
+    background-color: #0d1d51 !important;
+    border-color: #0d1d51;
 }
 
 .input-group-text {
     cursor: pointer;
 }
 
-.logo {
+.login-logo {
     width: 100px;
     height: auto;
-}
-
-.login-card-img {
-    width: 80%;
-    height: auto;
-    display: block;
-    margin: 20px auto;
-}
-
-.brand-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
 }
 
 main {
@@ -141,17 +119,23 @@ main {
     padding: 30px;
 }
 
-.login-logo {
-    width: 100px;
-    height: auto;
-}
-
 .login-card .login-btn {
     background-color: #142A74;
     color: #fff;
     border: none;
+    border-radius: 50px; /* Ensuring the login button has the same rounder style */
+    padding: 10px 20px; /* Ensuring the login button has the same padding */
 }
 
 .login-card .login-btn:hover {
     background-color: #0d1d51;
+}
+
+.header-right-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding-left: 40px;
+    border-left: 1px solid #2F2E2E;
 }

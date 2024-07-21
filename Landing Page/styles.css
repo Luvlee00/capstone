@@ -12,8 +12,8 @@ header {
     padding: 60px 0;
     overflow: hidden;
     min-height: 750px; 
+    position: relative;
 }
-
 
 .header-container {
     position: relative;
@@ -42,21 +42,35 @@ header {
     font-size: 67px; 
     margin-top: 90px;
     line-height: 1.0;
+    transition: color 0.3s, transform 0.3s, text-shadow 0.3s;
+}
+
+.text-section h1:hover {
+    color: #ffeb3b;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05);
 }
 
 .p1 {
     font-size: 25px;
     margin-top: 50px; 
+    transition: color 0.3s, transform 0.3s;
+}
+
+.p1:hover {
+    color: #ffeb3b;
+    transform: scale(1.05);
 }
 
 .p2 {
     font-size: 25px;
     margin-top: -30px; 
+    transition: color 0.3s, transform 0.3s;
 }
 
-
-#enrollNowBtn {
-    margin-top: 0px; 
+.p2:hover {
+    color: #ffeb3b;
+    transform: scale(1.05);
 }
 
 #enrollNowBtn {
@@ -76,6 +90,11 @@ header {
     border-color: #e0a800;
     color: #ffffff; 
     transform: translateY(-2px); 
+}
+
+
+header:hover .image-section {
+    transform: translateX(0); 
 }
 
 

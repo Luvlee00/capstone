@@ -1,3 +1,5 @@
+AOS.init();
+
 document.getElementById('enrollNowBtn').addEventListener('click', function() {
     this.classList.toggle('hover');
 });
@@ -7,8 +9,8 @@ document.getElementById('signUpBtn').addEventListener('click', function() {
 });
 
 
-    $('#videoModal').on('hidden.bs.modal', function () {
+$('#videoModal').on('hidden.bs.modal', function () {
         var video = document.getElementById('modalVideo');
         video.pause();
         video.currentTime = 0;
-    });
+});

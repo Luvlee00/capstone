@@ -149,9 +149,7 @@
     <section class="video-section" data-aos="fade-up">
         <div class="video-container">
             <video id="posterVideo" class="video-poster" muted autoplay loop playsinline>
-                <source src="B3S-Video.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
+                <source src="B3S-Video.mp4" type="video/mp4"></video>
             <div class="video-overlay" data-toggle="modal" data-target="#videoModal">
                 <div class="play-button">&#9658;</div>
                 <h3>B3S DRIVING SCHOOL</h3>
@@ -159,6 +157,19 @@
             </div>
         </div>
     </section>
+
+    <div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="videoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <video id="modalVideo" controls style="width: 100%;">
+                        <source src="B3S-Video.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <section class="call-to-action text-center" data-aos="fade-up">
         <div class="container">

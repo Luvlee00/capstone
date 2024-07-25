@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verification</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<!-- Your HTML content for the verification page -->
+<main class="d-flex align-items-center">
+    <div class="container d-flex justify-content-center">
+        <div class="card login-card">
+            <div class="card-body">
+                <!-- Your form content -->
+                <div class="text-center mb-4">
+                    <img src="Images/phone.png" alt="Verification" class="img-fluid" style="height: 110px;">
+                </div>
+                <h3 class="text-center mb-4">Verification</h3>
+                <p class="text-center mb-4">A verification code has been sent to your phone number.</p>
+                <div class="d-flex justify-content-center mb-4">
+                    <input type="text" class="verification-code-input" maxlength="1" oninput="moveToNext(this, 'input1')" onkeydown="moveToPrev(event, 'input0')" id="input0">
+                    <input type="text" class="verification-code-input" maxlength="1" oninput="moveToNext(this, 'input2')" onkeydown="moveToPrev(event, 'input0')" id="input1">
+                    <input type="text" class="verification-code-input" maxlength="1" oninput="moveToNext(this, 'input3')" onkeydown="moveToPrev(event, 'input1')" id="input2">
+                    <input type="text" class="verification-code-input" maxlength="1" oninput="moveToNext(this, 'input4')" onkeydown="moveToPrev(event, 'input2')" id="input3">
+                    <input type="text" class="verification-code-input" maxlength="1" oninput="moveToNext(this, 'input5')" onkeydown="moveToPrev(event, 'input3')" id="input4">
+                    <input type="text" class="verification-code-input" maxlength="1" onkeydown="moveToPrev(event, 'input4')" id="input5">
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button type="button" class="btn btn-outline-primary login-btn" id="verifyButton">VERIFY</button>
+                </div>
+                <p class="text-center mt-3">Didn't receive a code? <button class="btn btn-link text-dark" id="resendCode">Resend Code</button></p>
+                <p class="text-center mt-3" id="message"></p>
+            </div>
+        </div>
+    </div>
+</main>
+
+<div id="recaptcha-container"></div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
+    import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
+    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-database.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyBflGD3TVFhlOeUBUPaX3uJTuB-KEgd0ow",
+        authDomain: "authentication-d6496.firebaseapp.com",
+        databaseURL: "https://authentication-d6496-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "authentication-d6496",
+        storageBucket: "authentication-d6496.appspot.com",
+        messagingSenderId: "195867894399",
+        appId: "1:195867894399:web:596fb109d308aea8b6154a"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    window.moveToNext = (current, nextFieldID) => {
+        if (current.value.length >= current.maxLength) {
+            document.getElementById(nextFieldID).focus();
+        }
+    };
+
+    window.moveToPrev = (event, prevFieldID) => {
+        if (event.key === 'Backspace' && event.target.value === '') {
+            document.getElementById(prevFieldID).focus();
+        }
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+            const confirmationResultData = localStorage.getItem('confirmationResult');
+            if (!confirmationResultData) {
+                document.getElementById('message').textContent = 'No confirmation result found. Please try sending the code again.';
+                return;
+            }
+
+            // Attempt to parse the stored confirmation result
+            let confirmationResult;
+            try {
+                confirmationResult = JSON.parse(confirmationResultData);
+            } catch (error) {
+                console.error('Error parsing confirmation result', error);
+                document.getElementById('message').textContent = 'Error parsing confirmation result. Please try again.';
+                return;
+            }
+
+            if (!confirmationResult.verificationId) {
+                document.getElementById('message').textContent = 'Invalid confirmation result. Please try again.';
+                return;
+            }
+
+            // Restore the confirmation result object
+            const verificationId = confirmationResult.verificationId;
+            confirmationResult = { verificationId };  // Add any other necessary properties
+
+            document.getElementById('verifyButton').addEventListener('click', () => {
+                const code = Array.from(document.querySelectorAll('.verification-code-input'))
+                    .map(input => input.value)
+                    .join('');
+
+                const credential = firebase.auth.PhoneAuthProvider.credential(verificationId, code);
+                auth.signInWithCredential(credential).then((result) => {
+                    const user = result.user;
+                    document.getElementById('message').textContent = 'Phone number verified successfully!';
+                    // Optionally, store user data in Firebase Realtime Database
+                    const db = getDatabase(app);
+                    set(ref(db, 'applicants/' + user.uid), {
+                        phoneNumber: user.phoneNumber
+                    });
+                    // Redirect to a different page
+                    window.location.href = 'personal.html';
+                }).catch((error) => {
+                    console.error("Error during confirmationResult.confirm", error);
+                    document.getElementById('message').textContent = 'Error verifying code. Please try again.';
+                });
+            });
+
+            document.getElementById('resendCode').addEventListener('click', () => {
+                const phoneNumber = localStorage.getItem('phoneNumber');
+                if (!/^\+[1-9]\d{1,14}$/.test(phoneNumber)) {
+                    document.getElementById('message').textContent = 'Invalid phone number format. Please try again.';
+                    return;
+                }
+
+                const recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+                    'size': 'invisible',
+                    'callback': (response) => {
+                        // Do nothing, invisible reCAPTCHA will automatically trigger sendCode
+                    }
+                });
+
+                signInWithPhoneNumber(auth, phoneNumber, recaptchaVerifier)
+                    .then((newConfirmationResult) => {
+                        localStorage.setItem('confirmationResult', JSON.stringify(newConfirmationResult));
+                        document.getElementById('message').textContent = 'Verification code sent successfully.';
+                    }).catch((error) => {
+                        console.error("Error during signInWithPhoneNumber", error);
+                        if (error.code === 'auth/too-many-requests') {
+                            document.getElementById('message').textContent = 'Too many requests. Please try again later.';
+                        } else {
+                            document.getElementById('message').textContent = 'Error sending verification code. Please try again.';
+                        }
+                    });
+            });
+        });
+    </script>
+
+</body>
+</html>

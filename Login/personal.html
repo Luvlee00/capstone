@@ -111,58 +111,59 @@
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
   
     document.addEventListener('DOMContentLoaded', () => {
-        const firebaseConfig = {
-            apiKey: "AIzaSyBflGD3TVFhlOeUBUPaX3uJTuB-KEgd0ow",
-            authDomain: "authentication-d6496.firebaseapp.com",
-            databaseURL: "https://authentication-d6496-default-rtdb.asia-southeast1.firebasedatabase.app",
-            projectId: "authentication-d6496",
-            storageBucket: "authentication-d6496.appspot.com",
-            messagingSenderId: "195867894399",
-            appId: "1:195867894399:web:596fb109d308aea8b6154a"
-        };
+    const firebaseConfig = {
+        apiKey: "AIzaSyBflGD3TVFhlOeUBUPaX3uJTuB-KEgd0ow",
+        authDomain: "authentication-d6496.firebaseapp.com",
+        databaseURL: "https://authentication-d6496-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "authentication-d6496",
+        storageBucket: "authentication-d6496.appspot.com",
+        messagingSenderId: "195867894399",
+        appId: "1:195867894399:web:596fb109d308aea8b6154a"
+    };
 
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
-        const auth = getAuth();
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const auth = getAuth();
 
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                // User is signed in, you can get the user ID using user.uid
-                document.querySelector('#saveBtn').addEventListener('click', async () => {
-                    const first = document.getElementById('first').value.trim();
-                    const middle = document.getElementById('middle').value.trim();
-                    const last = document.getElementById('last').value.trim();
-                    const suffix = document.getElementById('suffix').value.trim();
-                    const birthday = document.getElementById('birthday').value;
-                    const age = document.getElementById('age').value;
-                    const address = document.getElementById('address').value.trim();
-                    const status = document.querySelector('input[name="status"]:checked')?.value;
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            document.querySelector('#saveBtn').addEventListener('click', async () => {
+                const first = document.getElementById('first').value.trim();
+                const middle = document.getElementById('middle').value.trim();
+                const last = document.getElementById('last').value.trim();
+                const suffix = document.getElementById('suffix').value.trim();
+                const birthday = document.getElementById('birthday').value;
+                const age = document.getElementById('age').value;
+                const address = document.getElementById('address').value.trim();
+                const status = document.querySelector('input[name="status"]:checked')?.value;
 
-                    // Validate form fields
-                    if (!first) {
-                        alert('First Name is required.');
-                        return;
-                    }
-                    if (!last) {
-                        alert('Last Name is required.');
-                        return;
-                    }
-                    if (!birthday) {
-                        alert('Birthday is required.');
-                        return;
-                    }
-                    if (!address) {
-                        alert('Address is required.');
-                        return;
-                    }
-                    if (!status) {
-                        alert('Civil Status is required.');
-                        return;
-                    }
+                // Validate form fields
+                if (!first) {
+                    alert('First Name is required.');
+                    return;
+                }
+                if (!last) {
+                    alert('Last Name is required.');
+                    return;
+                }
+                if (!birthday) {
+                    alert('Birthday is required.');
+                    return;
+                }
+                if (!address) {
+                    alert('Address is required.');
+                    return;
+                }
+                if (!status) {
+                    alert('Civil Status is required.');
+                    return;
+                }
 
-                    try {
-                        await set(ref(database, 'applicants/' + user.uid + '/personalInfo'), {
+                try {
+                    const initialUid = localStorage.getItem('initialUid');
+                    if (initialUid) {
+                        await set(ref(database, 'applicants/' + initialUid + '/personalInfo'), {
                             first: first,
                             middle: middle,
                             last: last,
@@ -174,17 +175,19 @@
                         });
 
                         alert('Personal Information Saved Successfully!');
-                    } catch (error) {
-                        alert('Failed to Save Personal Information: ' + error.message);
+                    } else {
+                        console.error("Initial UID not found in localStorage");
+                        alert('Error retrieving user information. Please try again.');
                     }
-                });
-            } else {
-                // User is signed out, redirect to login or register page
-                window.location.href = 'login.html';
-            }
-        });
-    
+                } catch (error) {
+                    alert('Failed to Save Personal Information: ' + error.message);
+                }
+            });
+        } else {
+            window.location.href = 'login.html';
+        }
     });
+});
 </script>
 </body>
 </html>

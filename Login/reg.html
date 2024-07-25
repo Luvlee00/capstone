@@ -49,13 +49,6 @@
                         <input type="email" class="form-control" id="email" placeholder="Email" required>
                     </div>
                     <div class="mb-3">
-                        <label for="phone" class="form-label">Phone Number</label>
-                        <div class="input-group">
-                            <span class="input-group-text">+63</span>
-                            <input type="tel" class="form-control" id="phone" placeholder="Phone Number" oninput="formatPhoneNumber(event)" required>
-                        </div>
-                    </div>
-                    <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
                         <div class="input-group">
                             <input type="password" class="form-control" id="password" placeholder="Password" required>
@@ -78,7 +71,7 @@
 <script src="reg.js"></script>
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
-    import { getDatabase, ref, set, get, update } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-database.js";
+    import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-database.js";
     import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -103,7 +96,6 @@
             event.preventDefault(); // Prevent the default form submission
 
             const email = document.getElementById('email').value;
-            const phone = document.getElementById('phone').value;
             const password = document.getElementById('password').value;
 
             // Validate Email
@@ -119,12 +111,6 @@
                 return;
             }
 
-            // Validate Phone
-            if (!validatePhone(phone)) {
-                alert('Please Enter a Valid Phone Number.');
-                return;
-            }
-
             // Validate Password
             const passwordValidationResult = validatePassword(password);
             if (!passwordValidationResult.isValid) {
@@ -136,17 +122,19 @@
                 const userCredential = await createUserWithEmailAndPassword(auth, email, password);
                 const user = userCredential.user;
 
+                // Save the initial UID in localStorage
+                localStorage.setItem('initialUid', user.uid);
+
                 // Save user data to the database
                 await set(ref(database, 'applicants/' + user.uid), {
                     email: email,
-                    phone: phone,
                     last_login: new Date().toISOString()
                 });
 
                 alert('Account Created');
                 
-                // Redirect to personal information page
-                window.location.href = 'verifphone.html';
+                // Redirect to phone verification page
+                window.location.href = 'verifphone1.html';
             } catch (error) {
                 alert(error.message);
             }
@@ -166,13 +154,8 @@
             return false;
         }
 
-        function validatePhone(phone) {
-            const phoneRegex = /^[0-9]{10}$/;
-            return phoneRegex.test(phone);
-        }
-
         function validatePassword(password) {
-            const minLength = 13;
+            const minLength = 8;
             const hasUpperCase = /[A-Z]/.test(password);
             const hasLowerCase = /[a-z]/.test(password);
             const hasNumber = /\d/.test(password);

@@ -45,8 +45,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
-    import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
-    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-database.js";
+    import { getAuth, RecaptchaVerifier, signInWithPhoneNumber, PhoneAuthProvider, signInWithCredential } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
+    import { getDatabase, ref, set, update } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-database.js";
 
     const firebaseConfig = {
         apiKey: "AIzaSyBflGD3TVFhlOeUBUPaX3uJTuB-KEgd0ow",
@@ -58,8 +58,8 @@
         appId: "1:195867894399:web:596fb109d308aea8b6154a"
     };
 
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
+   // Initialize Firebase
+   const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
     window.moveToNext = (current, nextFieldID) => {
@@ -75,82 +75,86 @@
     };
 
     document.addEventListener('DOMContentLoaded', () => {
-            const confirmationResultData = localStorage.getItem('confirmationResult');
-            if (!confirmationResultData) {
-                document.getElementById('message').textContent = 'No confirmation result found. Please try sending the code again.';
-                return;
-            }
+        const confirmationResultData = localStorage.getItem('confirmationResult');
+        if (!confirmationResultData) {
+            document.getElementById('message').textContent = 'No confirmation result found. Please try sending the code again.';
+            return;
+        }
 
-            // Attempt to parse the stored confirmation result
-            let confirmationResult;
+        let confirmationResult;
+        try {
+            confirmationResult = JSON.parse(confirmationResultData);
+        } catch (error) {
+            console.error('Error parsing confirmation result', error);
+            document.getElementById('message').textContent = 'Error parsing confirmation result. Please try again.';
+            return;
+        }
+
+        if (!confirmationResult.verificationId) {
+            document.getElementById('message').textContent = 'Invalid confirmation result. Please try again.';
+            return;
+        }
+
+        const verificationId = confirmationResult.verificationId;
+
+        document.getElementById('verifyButton').addEventListener('click', async () => {
+            const code = Array.from(document.querySelectorAll('.verification-code-input'))
+                .map(input => input.value)
+                .join('');
+
+            const credential = PhoneAuthProvider.credential(verificationId, code);
             try {
-                confirmationResult = JSON.parse(confirmationResultData);
-            } catch (error) {
-                console.error('Error parsing confirmation result', error);
-                document.getElementById('message').textContent = 'Error parsing confirmation result. Please try again.';
-                return;
-            }
+                const result = await signInWithCredential(auth, credential);
+                const user = result.user;
+                document.getElementById('message').textContent = 'Phone Number Verified Successfully!';
 
-            if (!confirmationResult.verificationId) {
-                document.getElementById('message').textContent = 'Invalid confirmation result. Please try again.';
-                return;
-            }
+                const db = getDatabase(app);
+                const initialUid = localStorage.getItem('initialUid');
 
-            // Restore the confirmation result object
-            const verificationId = confirmationResult.verificationId;
-            confirmationResult = { verificationId };  // Add any other necessary properties
-
-            document.getElementById('verifyButton').addEventListener('click', () => {
-                const code = Array.from(document.querySelectorAll('.verification-code-input'))
-                    .map(input => input.value)
-                    .join('');
-
-                const credential = firebase.auth.PhoneAuthProvider.credential(verificationId, code);
-                auth.signInWithCredential(credential).then((result) => {
-                    const user = result.user;
-                    document.getElementById('message').textContent = 'Phone number verified successfully!';
-                    // Optionally, store user data in Firebase Realtime Database
-                    const db = getDatabase(app);
-                    set(ref(db, 'applicants/' + user.uid), {
+                if (initialUid) {
+                    await update(ref(db, 'applicants/' + initialUid), {
                         phoneNumber: user.phoneNumber
                     });
-                    // Redirect to a different page
+                    console.log('Phone number stored successfully');
                     window.location.href = 'personal.html';
-                }).catch((error) => {
-                    console.error("Error during confirmationResult.confirm", error);
-                    document.getElementById('message').textContent = 'Error verifying code. Please try again.';
-                });
+                } else {
+                    console.error("Initial UID or email not found in localStorage");
+                    document.getElementById('message').textContent = 'Error retrieving user information. Please try again.';
+                }
+            } catch (error) {
+                console.error("Error during signInWithCredential", error);
+                document.getElementById('message').textContent = 'Error verifying code. Please try again.';
+            }
+        });
+
+        document.getElementById('resendCode').addEventListener('click', () => {
+            const phoneNumber = localStorage.getItem('phoneNumber');
+            if (!/^\+[1-9]\d{1,14}$/.test(phoneNumber)) {
+                document.getElementById('message').textContent = 'Invalid phone number format. Please try again.';
+                return;
+            }
+
+            const recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+                'size': 'invisible',
+                'callback': (response) => {
+                    // Do nothing, invisible reCAPTCHA will automatically trigger sendCode
+                }
             });
 
-            document.getElementById('resendCode').addEventListener('click', () => {
-                const phoneNumber = localStorage.getItem('phoneNumber');
-                if (!/^\+[1-9]\d{1,14}$/.test(phoneNumber)) {
-                    document.getElementById('message').textContent = 'Invalid phone number format. Please try again.';
-                    return;
-                }
-
-                const recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
-                    'size': 'invisible',
-                    'callback': (response) => {
-                        // Do nothing, invisible reCAPTCHA will automatically trigger sendCode
+            signInWithPhoneNumber(auth, phoneNumber, recaptchaVerifier)
+                .then((newConfirmationResult) => {
+                    localStorage.setItem('confirmationResult', JSON.stringify(newConfirmationResult));
+                    document.getElementById('message').textContent = 'Verification code sent successfully.';
+                }).catch((error) => {
+                    console.error("Error during signInWithPhoneNumber", error);
+                    if (error.code === 'auth/too-many-requests') {
+                        document.getElementById('message').textContent = 'Too many requests. Please try again later.';
+                    } else {
+                        document.getElementById('message').textContent = 'Error sending verification code. Please try again.';
                     }
                 });
-
-                signInWithPhoneNumber(auth, phoneNumber, recaptchaVerifier)
-                    .then((newConfirmationResult) => {
-                        localStorage.setItem('confirmationResult', JSON.stringify(newConfirmationResult));
-                        document.getElementById('message').textContent = 'Verification code sent successfully.';
-                    }).catch((error) => {
-                        console.error("Error during signInWithPhoneNumber", error);
-                        if (error.code === 'auth/too-many-requests') {
-                            document.getElementById('message').textContent = 'Too many requests. Please try again later.';
-                        } else {
-                            document.getElementById('message').textContent = 'Error sending verification code. Please try again.';
-                        }
-                    });
-            });
         });
-    </script>
-
+    });
+</script>
 </body>
 </html>

@@ -58,7 +58,7 @@
                     <div class="d-flex justify-content-center">
                         <button type="submit" id="signUp" class="btn btn-outline-primary login-btn">Create Account</button>
                     </div>
-                    <p class="text-center mt-3">Already have an account? <a href="#" class="text-dark">Login Here!</a></p>
+                    <p class="text-center mt-3">Already have an account? <a href="index.html" class="text-dark">Login Here!</a></p>
                 </form>
             </div>
         </div>
@@ -71,14 +71,13 @@
 <script src="reg.js"></script>
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
-    import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-database.js";
     import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
+    import { getFirestore, doc, setDoc, getDocs, collection } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
 
     document.addEventListener('DOMContentLoaded', () => {
         const firebaseConfig = {
             apiKey: "AIzaSyBflGD3TVFhlOeUBUPaX3uJTuB-KEgd0ow",
             authDomain: "authentication-d6496.firebaseapp.com",
-            databaseURL: "https://authentication-d6496-default-rtdb.asia-southeast1.firebasedatabase.app",
             projectId: "authentication-d6496",
             storageBucket: "authentication-d6496.appspot.com",
             messagingSenderId: "195867894399",
@@ -87,7 +86,7 @@
 
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
+        const firestore = getFirestore(app);
         const auth = getAuth();
 
         const registerForm = document.getElementById('registerForm');
@@ -125,10 +124,11 @@
                 // Save the initial UID in localStorage
                 localStorage.setItem('initialUid', user.uid);
 
-                // Save user data to the database
-                await set(ref(database, 'applicants/' + user.uid), {
+                // Save user data to the Firestore
+                await setDoc(doc(firestore, 'applicants', user.uid), {
                     email: email,
-                    last_login: new Date().toISOString()
+                    last_login: new Date().toISOString(),
+                    role: 'applicant'
                 });
 
                 alert('Account Created');
@@ -146,12 +146,9 @@
         }
 
         async function checkEmailExists(email) {
-            const snapshot = await get(ref(database, 'applicants'));
-            const users = snapshot.val();
-            if (users) {
-                return Object.values(users).some(user => user.email === email);
-            }
-            return false;
+            const querySnapshot = await getDocs(collection(firestore, 'applicants'));
+            const users = querySnapshot.docs.map(doc => doc.data());
+            return users.some(user => user.email === email);
         }
 
         function validatePassword(password) {
@@ -190,5 +187,6 @@
         });
     });
 </script>
+
 </body>
 </html>
